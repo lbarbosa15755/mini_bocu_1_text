@@ -45,3 +45,10 @@ with `0xFF` is equivalent to one that does not; the decoder treats them
 the same.  If you are looking for a byte-for-byte round trip, this decoder
 will not give you one, because it does not preserve reset bytes in its
 output.  It only produces the text.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
